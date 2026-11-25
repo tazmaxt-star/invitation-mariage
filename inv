@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Boda — Patricia &amp; Hamza</title>
+
+    <!-- Balises Open Graph pour l'aperçu WhatsApp (à mettre à jour après mise en ligne) -->
+    <meta property="og:title" content="Boda de Patricia y Hamza | حفل زفاف باتريسيا وحمزة" />
+    <meta property="og:description" content="26 de Junio de 2027 • Torrepalma, Sevilla" />
+    <meta property="og:image" content="https://votre-domaine.com/invitation_mariage.jpg" />
+    <meta property="og:url" content="https://votre-domaine.com/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Polices élégantes (Calligraphie latine et arabe) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background-color: #fdf4e3;
+            background-image:
+                radial-gradient(#f3dfc1 1px, transparent 1px),
+                radial-gradient(#f3dfc1 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            color: #5a4a42;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- ÉCRAN 1 : L'ENVELOPPE FERMÉE --- */
+        .envelope-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #fdf7ec 0%, #f3e4cb 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 100;
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        .envelope-screen.opened {
+            opacity: 0;
+            transform: scale(1.06);
+            pointer-events: none;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            height: 270px;
+            background: linear-gradient(145deg, #fbf3e4, #efe0c6);
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(90, 74, 66, 0.25);
+            border: 1.5px solid #dec69e;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Rabat supérieur triangulaire de l'enveloppe */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 155px;
+            background: linear-gradient(180deg, #e7d1ae 0%, #f5e8d1 100%);
+            clip-path: polygon(0 0, 50% 92%, 100% 0);
+            border-bottom: 1px solid #d4b88c;
+            transform-origin: top;
+            transition: transform 0.7s ease;
+            z-index: 2;
+        }
+
+        .envelope-screen.opened .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        /* Plis latéraux de l'enveloppe */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(33deg, rgba(196, 156, 100, 0.14) 49%, transparent 50%),
+                linear-gradient(-33deg, rgba(196, 156, 100, 0.14) 49%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Cachet de cire doré */
+        .wax-seal {
+            position: absolute;
+            top: 105px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #dfbe84, #b08444);
+            border: 3px solid #f5e3c1;
+            box-shadow: 0 6px 18px rgba(90, 65, 30, 0.35), inset 0 0 8px rgba(255, 255, 255, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fffaf0;
+            font-size: 22px;
+            font-weight: 600;
+            font-style: italic;
+            letter-spacing: 1px;
+            z-index: 3;
+            animation: pulseSeal 2.2s infinite ease-in-out;
+        }
+
+        @keyframes pulseSeal {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.06); }
+        }
+
+        .envelope-names {
+            font-size: 22px;
+            font-style: italic;
+            color: #6b5548;
+            z-index: 1;
+            margin-bottom: 4px;
+        }
+
+        .open-hint {
+            margin-top: 22px;
+            text-align: center;
+            color: #7c6658;
+            font-size: 18px;
+            letter-spacing: 0.4px;
+        }
+
+        .open-hint span {
+            display: block;
+            font-family: 'Amiri', serif;
+            font-size: 19px;
+            margin-top: 2px;
+        }
+
+        /* --- ÉCRAN 2 : LA LETTRE / CARTE D'INVITATION --- */
+        .main-container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+        }
+
+        .main-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .invitation-card {
+            background-color: #fff;
+            border-radius: 150px 150px 20px 20px;
+            box-shadow: 0 12px 45px rgba(90, 74, 66, 0.18);
+            overflow: hidden;
+            border: 5px solid #fff;
+        }
+
+        .invitation-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Bouton élégant avec icône et double typographie */
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #c9a267 0%, #b08749 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 1.5px solid #e6cfa7;
+            box-shadow: 0 8px 22px rgba(176, 135, 73, 0.32);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(176, 135, 73, 0.42);
+        }
+
+        .whatsapp-icon {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+            flex-shrink: 0;
+        }
+
+        .btn-text-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.2;
+        }
+
+        .text-es {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 21px;
+            letter-spacing: 0.4px;
+        }
+
+        .separator {
+            opacity: 0.7;
+            font-size: 16px;
+        }
+
+        .text-ar {
+            font-family: 'Amiri', serif;
+            font-weight: 700;
+            font-size: 21px;
+            direction: rtl;
+        }
+
+        footer {
+            margin-top: 32px;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            color: #8f7e75;
+        }
+
+        @media (max-width: 500px) {
+            .envelope {
+                height: 235px;
+            }
+            .wax-seal {
+                top: 90px;
+                width: 70px;
+                height: 70px;
+                font-size: 20px;
+            }
+            .invitation-card {
+                border-radius: 80px 80px 12px 12px;
+            }
+            .action-button {
+                padding: 13px 24px;
+            }
+            .text-es, .text-ar {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ENVELOPPE À OUVRIR -->
+    <div class="envelope-screen" id="envelopeScreen" onclick="openLetter()">
+        <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="wax-seal">P &amp; H</div>
+            <div class="envelope-names">Patricia &amp; Hamza</div>
+        </div>
+        <div class="open-hint">
+            Toca el sello para abrir la invitación
+            <span>اضغط على الختم لفتح الدعوة</span>
+        </div>
+    </div>
+
+    <!-- CONTENU DE LA LETTRE -->
+    <div class="main-container" id="mainContainer">
+        <div class="invitation-card">
+            <img src="./invitation_mariage.jpg" alt="Invitación de boda de Patricia y Hamza" class="invitation-image">
+        </div>
+
+        <!-- Remplacez votre_numero_whatsapp par votre numéro international sans + ni espaces (ex: 212600112233 ou 34600112233) -->
+        <a href="https://wa.me/votre_numero_whatsapp?text=%C2%A1Hola!%20Confirmo%20mi%20asistencia.%20%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%A4%D9%83%D8%AF%20%D8%AD%D8%B6%D9%88%D8%B1%D9%8A." class="action-button">
+            <svg class="whatsapp-icon" viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.59 4.46 1.71 6.402L3.1 28.8l6.58-1.726a12.74 12.74 0 0 0 6.324 1.676h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.39h-.004a10.61 10.61 0 0 1-5.408-1.48l-.388-.23-3.904 1.024 1.042-3.806-.252-.402a10.585 10.585 0 0 1-1.626-5.646c0-5.864 4.772-10.636 10.64-10.636 2.84 0 5.51 1.108 7.518 3.116a10.567 10.567 0 0 1 3.114 7.524c0 5.864-4.772 10.636-10.632 10.636zm5.836-7.966c-.32-.16-1.892-.934-2.186-1.04-.292-.106-.506-.16-.72.16-.212.32-.826 1.04-1.012 1.254-.186.212-.372.24-.692.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.894-1.778-2.214-.186-.32-.02-.492.14-.652.144-.144.32-.374.48-.56.16-.186.212-.32.32-.534.106-.212.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.212 0-.56.08-.852.4-.294.32-1.12 1.094-1.12 2.668s1.146 3.094 1.306 3.308c.16.212 2.256 3.444 5.466 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.126.614-.092 1.892-.774 2.158-1.52.266-.748.266-1.388.186-1.52-.08-.134-.292-.214-.612-.374z"/>
+            </svg>
+            <span class="btn-text-group">
+                <span class="text-es">Confirmar asistencia</span>
+                <span class="separator">•</span>
+                <span class="text-ar">تأكيد الحضور</span>
+            </span>
+        </a>
+
+        <footer>
+            Patricia &amp; Hamza • 26 . 06 . 2027
+        </footer>
+    </div>
+
+    <script>
+        function openLetter() {
+            const envelopeScreen = document.getElementById('envelopeScreen');
+            const mainContainer = document.getElementById('mainContainer');
+            envelopeScreen.classList.add('opened');
+            setTimeout(() => {
+                mainContainer.classList.add('visible');
+            }, 350);
+        }
+    </script>
+
+</body>
+</html>
